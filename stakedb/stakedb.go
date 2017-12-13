@@ -87,6 +87,10 @@ func NewStakeDatabase(client *rpcclient.Client, params *chaincfg.Params,
 		poolInfo:        NewPoolInfoCache(),
 	}
 
+	// Put the genesis block in the pool info cache since stakedb starts with
+	// genesis. Hence it will never be connected, how TPI is usually cached.
+	sDB.poolInfo.Set(*params.GenesisHash, &apitypes.TicketPoolInfo{})
+
 	dbName := DefaultStakeDbName
 	if len(dbNameOpt) > 0 {
 		dbName = dbNameOpt[0]
