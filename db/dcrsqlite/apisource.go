@@ -56,7 +56,7 @@ func newWiredDB(DB *DB, statusC chan uint32, cl *rpcclient.Client, p *chaincfg.P
 		log.Errorf("Unable to create stake DB: %v", err)
 		return wDB, func() error { return nil }
 	}
-	return wDB, wDB.sDB.StakeDB.Close
+	return wDB, wDB.sDB.Close
 }
 
 // NewWiredDB creates a new wiredDB from a *sql.DB, a node client, network
